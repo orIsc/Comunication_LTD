@@ -46,6 +46,12 @@ public class SurfingPackage {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	@Override
+	public String toString() {
+		return "SurfingPackage [spName=" + spName + ", supplier=" + supplier + ", infrastructure=" + infrastructure
+				+ ", price=" + price + "]";
+	}
 	
 	
 }

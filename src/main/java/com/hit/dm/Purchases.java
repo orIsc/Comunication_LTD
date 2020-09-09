@@ -26,6 +26,11 @@ public class Purchases {
 	public void setSpName(String spName) {
 		this.spName = spName;
 	}
+
+	@Override
+	public String toString() {
+		return "Purchases [userName=" + userName + ", spName=" + spName + "]";
+	}
 	
 	
 }

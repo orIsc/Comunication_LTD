@@ -2,6 +2,7 @@
     <wb-module deploy-name="Comunication_LTD">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/test"/>
         <property name="context-root" value="Comunication_LTD"/>
         <property name="java-output-path" value="/Comunication_LTD/build/classes"/>
     </wb-module>
