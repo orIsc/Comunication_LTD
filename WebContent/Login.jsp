@@ -24,11 +24,11 @@ Enter Password
 <input type="submit" value="Login"><br>
 </h2>
 </form>
+<form action = "RegisterPage">
 <h3>
 Register new user
 <input type="submit" value="Register"><br>
 </h3>
-
-
+</form>
 </body>
 </html>

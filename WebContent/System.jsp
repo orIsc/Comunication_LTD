@@ -22,5 +22,8 @@ System page
 <form action="Logout">
 <input type="submit" value="Logout">
 </form>
+<form action="ChangePassword" method="GET">
+<input type="submit" value="ChangePassword">
+</form>
 </body>
 </html>

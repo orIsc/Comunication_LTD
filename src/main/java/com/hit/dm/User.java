@@ -6,6 +6,7 @@ public class User {
 	private String password;
 	private String salt;
 	private String email;
+	private String timeStamp;
 	
 	public User(String userName, String password, String salt, String email) {
 		super();
@@ -47,10 +48,18 @@ public class User {
 		this.email = email;
 	}
 
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
 	@Override
 	public String toString() {
-		return "User [userName=" + userName + ", password=" + password + ", salt=" + salt + ", email=" + email + "]";
+		return "User [userName=" + userName + ", password=" + password + ", salt=" + salt + ", email=" + email
+				+ ", timeStamp=" + timeStamp + "]";
 	}
-	
 	
 }

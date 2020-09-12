@@ -10,7 +10,7 @@ h2 {text-align: center;}
 </style>
 </head>
 <body>
-<form method="get">
+<form action = "Register" method="POST">
 <h1>
 Register Page
 </h1>
