@@ -17,12 +17,13 @@ public class Driver {
 		
 		try {
 			Connection c = dbHandle.getConnection();
-			dbHandle.registerUser("gili", "Ddddd-1234", passUtil.getSalt(16), "sgha@walla.com");
+//			dbHandle.registerUser("gili", "Ddddd-1234", passUtil.getSalt(16), "sgha@walla.com");
 //			dbHandle.addSurfingPackage("up to 40gb", "bezeq", "bezeq-international", 80);
 //			dbHandle.addSurfingPackage("up to 100gb", "bezeq", "bezeq-international", 120);
 //			dbHandle.addPurchase("or", "up to 100gb");
 //			dbHandle.addPurchase("roi", "up to 40gb");
 //			Statement stat = c.createStatement();
+			dbHandle.updatePassword("adi", "Aaaaa-1234");
 			rs = dbHandle.getUsers();
 			while (rs.next()) {
 				System.out.println(rs.getString("userName") + "," + rs.getString("password") +
@@ -53,7 +54,7 @@ public class Driver {
 //			}else {
 //				System.out.println("no");
 //			}
-//			if(dbHandle.validUser("roi", "Bbbbb1234-")) {
+//			if(dbHandle.validUser("adi", "Ccccc-1234")) {
 //				System.out.println("valid");
 //			}else {
 //				System.out.println("invalid");

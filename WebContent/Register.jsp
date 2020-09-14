@@ -7,6 +7,7 @@
 <style>
 h1 {text-align: center;}
 h2 {text-align: center;}
+h3 {text-align: center;}
 </style>
 </head>
 <body>
@@ -24,5 +25,13 @@ Enter Email
 <input type="submit" value="Register"><br>
 </h2>
 </form>
+<div id="regMessage"></div> 
+<h3>
+<%
+String login_msg=(String)request.getAttribute("regMessage");  
+if(login_msg!=null)
+out.println("<font color=red size=4px>"+login_msg+"</font>");
+%>
+</h3>
 </body>
 </html>

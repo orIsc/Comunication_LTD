@@ -4,6 +4,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>System</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
 </head>
 <body>
 
@@ -17,13 +47,16 @@ if(session.getAttribute("userName") == null) {
 		response.sendRedirect("Login.jsp");
 	}  
 %>
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="ChangePassword">Change password</a>
+  <a href="Logout">Logout</a>
+  <a href="#about">About</a>
+</div>
 System page 
 
-<form action="Logout">
+<!-- <form action="Logout">
 <input type="submit" value="Logout">
-</form>
-<form action="ChangePassword" method="GET">
-<input type="submit" value="ChangePassword">
-</form>
+</form> -->
 </body>
 </html>

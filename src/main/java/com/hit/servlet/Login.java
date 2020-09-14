@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
 		
 		String uname = request.getParameter("username");
 		String pass = request.getParameter("password");
-		
+		RequestDispatcher rd = null;
 		Connection c = dbHandle.getConnection();
 		ResultSet rs = dbHandle.getUser(uname);
 
@@ -46,7 +46,9 @@ public class Login extends HttpServlet {
 			response.sendRedirect("System.jsp");
 		}
 		else {
-			response.sendRedirect("Login.jsp");
+			request.setAttribute("passMessage","Invalid Username or Password");
+			rd = request.getRequestDispatcher("Login.jsp");            
+			rd.include(request, response);
 		}
 	}
 

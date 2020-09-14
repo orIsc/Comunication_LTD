@@ -1,11 +1,18 @@
 package com.hit.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.hit.dm.Password_utils;
+import com.hit.dao.DbHandle;
+import com.hit.dao.DbHandleImpl;
 
 /**
  * Servlet implementation class ForgetPassword
@@ -13,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ForgetPassword")
 public class ForgetPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+    private Password_utils passUtil = Password_utils.getInstance();
+    private DbHandle dbHandle = DbHandleImpl.getInstance();
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -22,5 +31,30 @@ public class ForgetPassword extends HttpServlet {
 		
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String email = request.getParameter("email");
+		String randomPassword = passUtil.getSalt(10);
+		RequestDispatcher rd = null;
+		
+		try {
+			Connection c = dbHandle.getConnection();
+			ResultSet rs = dbHandle.getUsers();
+			
+			while(rs.next()) {
+				if(!email.equals(rs.getString("email"))) {
+					request.setAttribute("fpMessage","Invalid email");
+				}
+				else {
+					request.setAttribute("fpMessage","Password sent successfuly to" + email);
+				}
+			}
+		}catch(Exception e) {
+			System.out.println("Error:" + e.getMessage());
+		}
+		rd = request.getRequestDispatcher("ForgetPassword.jsp");            
+		rd.include(request, response);
+		response.sendRedirect("ForgetPassword.jsp");
+		
+	}
 
 }

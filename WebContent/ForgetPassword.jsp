@@ -7,19 +7,25 @@
 <title>Forget password</title>
 <style>
 h1 {text-align: center;}
+h2 {text-align: center;}
 </style>
 </head>
 <body>
-
-<form action="ChangePassword" method="POST">
+<form action="ForgetPassword" method="POST">
 <h1>
 Forget password<br>
-Enter Current password
-<input type="password" name="currentPassword"> <br>
-Enter New Password
-<input type="password" name="newPassword"><br>
-<input type="submit" value="submit"><br>
+Enter Email
+<input type="text" name="email"> <br>
+<input type="submit" value="confirm"><br>
 </h1>
 </form>
+<div id="fpMessage"></div> 
+<h2>
+<%
+String login_msg=(String)request.getAttribute("fpMessage");  
+if(login_msg!=null)
+out.println("<font color=red size=4px>"+login_msg+"</font>");
+%>
+</h2>
 </body>
 </html>

@@ -1,10 +1,12 @@
 package com.hit.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,13 +34,18 @@ public class Register extends HttpServlet {
 		String pass = request.getParameter("password");
 		String email = request.getParameter("email");
 		String salt = passUtils.getSalt(16);
-		
-		Connection c = dbHandle.getConnection();
-		
+		RequestDispatcher rd = null;
+		Connection c = dbHandle.getConnection(); 
+	    
 		if(!dbHandle.isUserExists(uname) && passUtils.validPassword(pass)) {
 			dbHandle.registerUser(uname, pass, salt, email);
+			response.sendRedirect("Login.jsp");
 		}
-		response.sendRedirect("Login.jsp");
+		else {
+			request.setAttribute("regMessage","Invalid Username or Password");
+			rd = request.getRequestDispatcher("Register.jsp");            
+			rd.include(request, response);
+		}
 	}
 
 }

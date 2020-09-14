@@ -46,10 +46,8 @@ public class DbHandleImpl implements DbHandle {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return conn;
@@ -207,11 +205,20 @@ public class DbHandleImpl implements DbHandle {
 
 	@Override
 	public boolean updatePassword(String userName, String password) {
-		String sqlChangePassword = "UPDATE users SET password= where userName='" + userName + "' (password) VALUES (?)";
+		String sqlChangePassword = "UPDATE users SET password=? where userName=?";
+		String secPass;
+		String salt = "";
+		
 		try {
 			conn = getConnection();
+			rs = getUser(userName);
+			while(rs.next()) {
+				salt = rs.getString("salt");
+			}
+			secPass = passUtil.generateSecurePassword(password, salt);
 			prepStat = conn.prepareStatement(sqlChangePassword);
-			prepStat.setString(1, password);
+			prepStat.setString(1, secPass);
+			prepStat.setString(2, userName);
 			prepStat.executeUpdate();
 			prepStat.close();
 			conn.close();			

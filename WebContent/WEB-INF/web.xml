@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>Comunication_LTD</display-name>
-  <welcome-file-list>
-    <welcome-file>Login.html</welcome-file>
-    <welcome-file>Login.htm</welcome-file>
-    <welcome-file>Login.jsp</welcome-file>
-    <welcome-file>Default.html</welcome-file>
-    <welcome-file>Default.htm</welcome-file>
-    <welcome-file>Default.jsp</welcome-file>
-  </welcome-file-list>
-  
+
+	<servlet>  
+    <servlet-name>Login</servlet-name>  
+    <servlet-class>Login</servlet-class>  
+	</servlet>  
+	<servlet>  
+    <servlet-name>ChangePassword</servlet-name>  
+    <servlet-class>ChangePassword</servlet-class>  
+    </servlet>  
+  	<servlet>  
+    <servlet-name>Logout</servlet-name>  
+    <servlet-class>Logout</servlet-class>  
+    </servlet>  
+    <servlet>  
+    <servlet-name>RegisterPage</servlet-name>  
+    <servlet-class>RegisterPage</servlet-class>  
+    </servlet>  
+    <servlet>  
+    <servlet-name>Register</servlet-name>  
+    <servlet-class>Register</servlet-class>  
+    </servlet>  
+     <welcome-file-list>  
+   <welcome-file>Login.jsp</welcome-file>  
+  </welcome-file-list>  
 </web-app>

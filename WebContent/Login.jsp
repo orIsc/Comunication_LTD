@@ -9,6 +9,8 @@ import="com.hit.dao.DbHandleImpl" errorPage="Error.jsp"%>
 h1 {text-align: center;}
 h2 {text-align: center;}
 h3 {text-align: center;}
+h4 {text-align: center;}
+h5 {text-align: center;}
 </style>
 </head>
 <body>
@@ -23,12 +25,25 @@ Enter Password
 <input type="password" name="password"><br>
 <input type="submit" value="Login"><br>
 </h2>
+<div id="passMessage"></div> 
+<h4>
+<%
+String login_msg=(String)request.getAttribute("passMessage");  
+if(login_msg!=null)
+out.println("<font color=red size=4px>"+login_msg+"</font>");
+%>
+</h4>
 </form>
 <form action = "RegisterPage">
 <h3>
 Register new user
 <input type="submit" value="Register"><br>
 </h3>
+</form>
+<form action="ForgetPassword">
+<h5>
+<input type="submit" value="Forget Password"><br>
+</h5>
 </form>
 </body>
 </html>
