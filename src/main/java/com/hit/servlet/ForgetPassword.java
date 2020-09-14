@@ -34,26 +34,27 @@ public class ForgetPassword extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String randomPassword = passUtil.getSalt(10);
-		RequestDispatcher rd = null;
 		
 		try {
 			Connection c = dbHandle.getConnection();
 			ResultSet rs = dbHandle.getUsers();
+			RequestDispatcher rd = request.getRequestDispatcher("ForgetPassword.jsp"); 
 			
 			while(rs.next()) {
 				if(!email.equals(rs.getString("email"))) {
 					request.setAttribute("fpMessage","Invalid email");
 				}
 				else {
-					request.setAttribute("fpMessage","Password sent successfuly to" + email);
+					dbHandle.updatePassword(rs.getString("userName"), randomPassword);
+					request.setAttribute("fpMessage","Password sent successfuly to " + email + 
+							"random pass is:" + randomPassword);
 				}
 			}
+			rd = request.getRequestDispatcher("ForgetPassword.jsp");            
+			rd.include(request, response);
 		}catch(Exception e) {
 			System.out.println("Error:" + e.getMessage());
 		}
-		rd = request.getRequestDispatcher("ForgetPassword.jsp");            
-		rd.include(request, response);
-		response.sendRedirect("ForgetPassword.jsp");
 		
 	}
 

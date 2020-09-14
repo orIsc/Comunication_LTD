@@ -31,6 +31,7 @@ public class Login extends HttpServlet {
     private DbHandle dbHandle = DbHandleImpl.getInstance();
     private DbQueries queries = DbQueries.getInstance();
     private Password_utils passUtils = Password_utils.getInstance();
+    private int faildAttempts = 0;
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -39,13 +40,14 @@ public class Login extends HttpServlet {
 		RequestDispatcher rd = null;
 		Connection c = dbHandle.getConnection();
 		ResultSet rs = dbHandle.getUser(uname);
-
+		HttpSession session = request.getSession();
+		
 		if(dbHandle.validUser(uname, pass)) {
-			HttpSession session = request.getSession();
 			session.setAttribute("userName", uname);
 			response.sendRedirect("System.jsp");
 		}
 		else {
+			session.setAttribute("faildAttempts", faildAttempts + 1);
 			request.setAttribute("passMessage","Invalid Username or Password");
 			rd = request.getRequestDispatcher("Login.jsp");            
 			rd.include(request, response);
