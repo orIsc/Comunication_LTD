@@ -22,6 +22,10 @@
     <servlet-name>Register</servlet-name>  
     <servlet-class>Register</servlet-class>  
     </servlet>  
+      <servlet>  
+    <servlet-name>ForgotPassword</servlet-name>  
+    <servlet-class>ForgotPassword</servlet-class>  
+    </servlet>  
      <welcome-file-list>  
    <welcome-file>Login.jsp</welcome-file>  
   </welcome-file-list>  

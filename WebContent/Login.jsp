@@ -40,9 +40,9 @@ Register new user
 <input type="submit" value="Register"><br>
 </h3>
 </form>
-<form action="ForgetPassword" method="get">
+<form action="ForgotPassword" method="get">
 <h5>
-<input type="submit" value="Forget Password"><br>
+<input type="submit" value="Forgot Password"><br>
 </h5>
 </form>
 </body>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>   
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -33,6 +35,7 @@ body {
   background-color: #4CAF50;
   color: white;
 }
+h1 {text-align: center;}
 </style>
 </head>
 <body>
@@ -48,15 +51,14 @@ if(session.getAttribute("userName") == null) {
 	}  
 %>
 <div class="topnav">
-  <a class="active" href="#home">Home</a>
+  <a class="active" href="System.jsp">Home</a>
   <a href="ChangePassword">Change password</a>
   <a href="Logout">Logout</a>
   <a href="#about">About</a>
 </div>
-System page 
+<h1>
+Comunication LTD
+</h1>
 
-<!-- <form action="Logout">
-<input type="submit" value="Logout">
-</form> -->
 </body>
 </html>

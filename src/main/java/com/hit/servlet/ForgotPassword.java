@@ -17,8 +17,8 @@ import com.hit.dao.DbHandleImpl;
 /**
  * Servlet implementation class ForgetPassword
  */
-@WebServlet("/ForgetPassword")
-public class ForgetPassword extends HttpServlet {
+@WebServlet("/ForgotPassword")
+public class ForgotPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private Password_utils passUtil = Password_utils.getInstance();
     private DbHandle dbHandle = DbHandleImpl.getInstance();
@@ -27,7 +27,7 @@ public class ForgetPassword extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("ForgetPassword.jsp");
+		response.sendRedirect("ForgotPassword.jsp");
 		
 	}
 
@@ -38,7 +38,7 @@ public class ForgetPassword extends HttpServlet {
 		try {
 			Connection c = dbHandle.getConnection();
 			ResultSet rs = dbHandle.getUsers();
-			RequestDispatcher rd = request.getRequestDispatcher("ForgetPassword.jsp"); 
+			RequestDispatcher rd = request.getRequestDispatcher("ForgotPassword.jsp"); 
 			
 			while(rs.next()) {
 				if(!email.equals(rs.getString("email"))) {
@@ -50,7 +50,7 @@ public class ForgetPassword extends HttpServlet {
 							"random pass is:" + randomPassword);
 				}
 			}
-			rd = request.getRequestDispatcher("ForgetPassword.jsp");            
+			rd = request.getRequestDispatcher("ForgotPassword.jsp");            
 			rd.include(request, response);
 		}catch(Exception e) {
 			System.out.println("Error:" + e.getMessage());

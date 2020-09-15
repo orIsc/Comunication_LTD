@@ -11,9 +11,9 @@ h2 {text-align: center;}
 </style>
 </head>
 <body>
-<form action="ForgetPassword" method="POST">
+<form action="ForgotPassword" method="POST">
 <h1>
-Forget password<br>
+Forgot password<br>
 Enter Email
 <input type="text" name="email"> <br>
 <input type="submit" value="confirm"><br>
