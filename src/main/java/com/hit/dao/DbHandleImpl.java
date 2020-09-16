@@ -1,5 +1,9 @@
 package com.hit.dao;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -7,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import com.hit.dao.DbQueries;
+import com.hit.dm.Configuration;
 import com.hit.dm.Password_utils;
 import com.hit.dm.User;
 
@@ -241,8 +246,7 @@ public class DbHandleImpl implements DbHandle {
 		}
 		return rs;
 	}
-
-
+	
 }
 
 

@@ -3,6 +3,7 @@ package util;
 import com.hit.dao.DbHandle;
 import com.hit.dao.DbHandleImpl;
 import com.hit.dao.DbQueries;
+import com.hit.dm.Configuration;
 import com.hit.dm.Password_utils;
 
 import java.sql.*;
@@ -23,12 +24,12 @@ public class Driver {
 //			dbHandle.addPurchase("or", "up to 100gb");
 //			dbHandle.addPurchase("roi", "up to 40gb");
 //			Statement stat = c.createStatement();
-			dbHandle.updatePassword("adi", "Aaaaa-1234");
-			rs = dbHandle.getUsers();
-			while (rs.next()) {
-				System.out.println(rs.getString("userName") + "," + rs.getString("password") +
-						","  + rs.getString("salt") + ","  + rs.getString("email"));
-			}
+//			dbHandle.updatePassword("adi", "Aaaaa-1234");
+//			rs = dbHandle.getUsers();
+//			while (rs.next()) {
+//				System.out.println(rs.getString("userName") + "," + rs.getString("password") +
+//						","  + rs.getString("salt") + ","  + rs.getString("email"));
+//			}
 //			rs = dbHandle.getSurfingPackages();
 //			while (rs.next()) {
 //				System.out.println(rs.getString("spName") + "," + rs.getString("supplier") +
@@ -59,7 +60,10 @@ public class Driver {
 //			}else {
 //				System.out.println("invalid");
 //			}
-			rs.close();
+			System.out.println("test="+Thread.currentThread().getContextClassLoader().getResource("configuration.json"));
+			Configuration conf = passUtil.getConfigurations();
+			System.out.println(conf);
+			//rs.close();
 			c.close();
 		}catch(Exception e) {
 			e.printStackTrace();

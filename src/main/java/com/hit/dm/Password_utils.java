@@ -1,5 +1,13 @@
 package com.hit.dm;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -9,6 +17,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
+import com.google.gson.JsonSyntaxException;
+import com.hit.dao.DbHandle;
+import com.hit.dao.DbHandleImpl;
  
 public class Password_utils { //Encryption methods to increase SECURITY & REGULAROTY Conditions
     
@@ -17,9 +30,11 @@ public class Password_utils { //Encryption methods to increase SECURITY & REGULA
     private final int ITERATIONS = 65536;
     private final int KEY_LENGTH = 128;
     private static Password_utils instance;
+    private Configuration conf = null;
+    private String path = "/Users/orissacci/eclipse-workspace/Comunication_LTD/build/classes/configuration.json";
     
     private Password_utils() {
-    	
+    
     }
     
     public static Password_utils getInstance() {
@@ -74,23 +89,37 @@ public class Password_utils { //Encryption methods to increase SECURITY & REGULA
         Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
         Pattern lowerCasePatten = Pattern.compile("[a-z ]");
         Pattern digitCasePatten = Pattern.compile("[0-9 ]");
-        
-    	if(password.length() < 10) {
+        Configuration conf = getConfigurations();
+    	if(password.length() < conf.getLength()) {
     		flag = false;
     	}
     	
-    	if(!specailCharPatten.matcher(password).find()) {
+    	if(!specailCharPatten.matcher(password).find() && conf.isSpeChar()) {
     		flag=false;
     	}
-    	if(!UpperCasePatten.matcher(password).find()) {
+    	if(!UpperCasePatten.matcher(password).find() && conf.isUpCase()) {
     		flag=false;
     	}
-    	if(!lowerCasePatten.matcher(password).find()) {
+    	if(!lowerCasePatten.matcher(password).find() && conf.isLowCase()) {
     		flag=false;
     	}
-    	if(!digitCasePatten.matcher(password).find()) {	
+    	if(!digitCasePatten.matcher(password).find() && conf.isDigits()) {	
     		flag=false;
     	}   	
     	return flag;
     }
+    
+	public Configuration getConfigurations() {
+		Gson gson = new Gson();
+		
+		try (Reader reader = new FileReader(path)) {
+			conf = gson.fromJson(reader, Configuration.class);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	return conf;
+	}
+	
 }

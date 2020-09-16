@@ -3,6 +3,7 @@ package com.hit.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 
+import com.hit.dm.Configuration;
 import com.hit.dm.User;
 
 public interface DbHandle {
