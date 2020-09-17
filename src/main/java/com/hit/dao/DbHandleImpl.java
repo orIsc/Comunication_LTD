@@ -7,6 +7,8 @@ import java.io.Reader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,6 +16,7 @@ import com.hit.dao.DbQueries;
 import com.hit.dm.Configuration;
 import com.hit.dm.Password_utils;
 import com.hit.dm.User;
+import com.hit.dm.UsersHistory;
 
 public class DbHandleImpl implements DbHandle {
 	 
@@ -245,6 +248,67 @@ public class DbHandleImpl implements DbHandle {
 			System.out.println(e.getMessage());	
 		}
 		return rs;
+	}
+
+	@Override
+	public void addUserVisit(String userName, String timeStamp) {
+		List<UsersHistory> list = getAllVisits(userName);
+		String firstVisit;
+		
+		try {
+			conn= getConnection();	
+			if(list.size() == 3) {
+				firstVisit = list.get(0).getTimeStamp();
+				removeUserVisit(userName, firstVisit);
+			}
+			prepStat = conn.prepareStatement(queries.sqlInsertTimeStamp);
+			prepStat.setString(1, userName);
+			prepStat.setString(2, timeStamp);
+			prepStat.executeUpdate();
+			prepStat.close();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());	
+		}
+		
+	}
+
+	@Override
+	public List<UsersHistory> getAllVisits(String userName) {
+		List<UsersHistory> list = new ArrayList<UsersHistory>();
+		UsersHistory userHistory;
+		String sqlGetAllUserHistory = "SELECT * FROM userHistory where userName=?";
+		
+		try {
+			conn= getConnection();			
+			prepStat = conn.prepareStatement(sqlGetAllUserHistory);
+			prepStat.setString(1, userName);
+			rs = prepStat.executeQuery();
+			while(rs.next()) {
+				userHistory = new UsersHistory(rs.getString("userName"), rs.getString("timeStamp"));
+				list.add(userHistory);
+			}
+			prepStat.close();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());	
+		}
+		return list;
+	}
+
+	@Override
+	public void removeUserVisit(String userName, String timeStamp) {
+		String sqlRemoveUserVisit = "DELETE FROM userHistory where userName=? and timeStamp=?";
+		
+		try {
+			conn= getConnection();			
+			prepStat = conn.prepareStatement(sqlRemoveUserVisit);
+			prepStat.setString(1, userName);
+			prepStat.setString(2, timeStamp);
+			prepStat.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());	
+		}
 	}
 	
 }

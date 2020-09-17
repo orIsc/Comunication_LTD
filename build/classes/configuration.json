@@ -3,5 +3,6 @@
 	"upCase":true,
 	"lowCase":true,
 	"speChar":true,
-	"digits":true
+	"digits":true,
+	"loginAttempts":3
 }

@@ -2,9 +2,10 @@ package com.hit.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-
+import java.util.List;
 import com.hit.dm.Configuration;
 import com.hit.dm.User;
+import com.hit.dm.UsersHistory;
 
 public interface DbHandle {
 	public Connection getConnection();
@@ -19,4 +20,7 @@ public interface DbHandle {
 	public boolean validUser(String userName, String password);
 	public boolean updatePassword(String userName, String password);
 	public ResultSet getUser(String userName);
+	public void addUserVisit(String userName, String timeStamp);
+	public List<UsersHistory> getAllVisits(String userName);
+	public void removeUserVisit(String userName, String timeStamp);
 }

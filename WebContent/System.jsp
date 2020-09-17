@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<%@ page import="com.hit.dao.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
 <html>
 <head>
@@ -57,6 +59,36 @@ if(session.getAttribute("userName") == null) {
 <h1>
 Comunication LTD
 </h1>
-
+<table width="59%" border="1" align="center">
+	 <thead>
+    <tr>
+        <td>Limit</td>
+        <td>Supplier</td>
+        <td>Infrastructure</td>
+        <td>Price</td>
+    </tr>
+    </thead>
+    <%
+      DbHandle dbHandle = DbHandleImpl.getInstance();
+      ResultSet rs = dbHandle.getSurfingPackages();
+      ResultSetMetaData metaData = rs.getMetaData();
+        while(rs.next())
+        {
+            %>
+                <tr>
+                 <%
+                 for(int i = 1; i<=metaData.getColumnCount();i++)
+                    { %>
+                     <td>
+                     <%= rs.getString(i)%>
+                     </td>
+                <% 
+                    }
+                %>                   
+                </tr>
+            <% 
+        }
+    %>
+</table>
 </body>
 </html>

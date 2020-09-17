@@ -25,5 +25,6 @@ public class DbQueries {
 			"(spName,supplier,infrastructure,price) VALUES (?,?,?,?)";	
 	public String sqlPurchasesinsert = "INSERT INTO purchases" +
 			"(userName,spName) VALUES (?,?)";	
+	public String sqlInsertTimeStamp = "INSERT INTO userHistory" + "(userName,timeStamp) VALUES (?,?)";
 	
 }

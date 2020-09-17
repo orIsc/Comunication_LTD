@@ -16,6 +16,7 @@ public class Configuration {
     private boolean lowCase;
     private boolean speChar;
     private boolean digits;
+    private int loginAttempts;
 	
 	public Configuration() {
 
@@ -61,10 +62,18 @@ public class Configuration {
 		this.digits = digits;
 	}
 
+	public int getLoginAttempts() {
+		return loginAttempts;
+	}
+
+	public void setLoginAttempts(int loginAttempts) {
+		this.loginAttempts = loginAttempts;
+	}
+
 	@Override
 	public String toString() {
 		return "Configuration [length=" + length + ", upCase=" + upCase + ", lowCase=" + lowCase + ", speChar="
-				+ speChar + ", digits=" + digits + "]";
+				+ speChar + ", digits=" + digits + ", loginAttempts=" + loginAttempts + "]";
 	}
 	
 }

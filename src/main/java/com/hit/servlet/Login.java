@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.hit.dao.DbHandle;
 import com.hit.dao.DbHandleImpl;
 import com.hit.dao.DbQueries;
+import com.hit.dm.Configuration;
 import com.hit.dm.Password_utils;
 import com.hit.dm.User;
 
@@ -32,6 +32,7 @@ public class Login extends HttpServlet {
     private DbQueries queries = DbQueries.getInstance();
     private Password_utils passUtils = Password_utils.getInstance();
     private int faildAttempts = 0;
+    private Configuration conf = passUtils.getConfigurations();
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -41,10 +42,12 @@ public class Login extends HttpServlet {
 		Connection c = dbHandle.getConnection();
 		ResultSet rs = dbHandle.getUser(uname);
 		HttpSession session = request.getSession();
+		int loginAttempts = conf.getLoginAttempts();
 		
 		if(dbHandle.validUser(uname, pass)) {
 			session.setAttribute("userName", uname);
 			response.sendRedirect("System.jsp");
+			dbHandle.addUserVisit(uname, getTimeStamp());
 		}
 		else {
 			session.setAttribute("faildAttempts", faildAttempts + 1);
