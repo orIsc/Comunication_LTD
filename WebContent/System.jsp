@@ -36,6 +36,38 @@ body {
   color: white;
 }
 h1 {text-align: center;}
+  #container{
+                margin:0 auto;
+                width:80%;
+                overflow:auto;
+            }
+            table.gridtable {
+                margin:0 auto;
+                width:95%;
+                overflow:auto;
+                font-family: helvetica,arial,sans-serif;
+                font-size:14px;
+                color:#333333;
+                border-width: 1px;
+                border-color: #666666;
+                border-collapse: collapse;
+                text-align: center;
+            } 
+            table.gridtable th {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+                background-color: #F6B4A5;
+            }
+            table.gridtable td {
+                border-width: 1px;
+                padding: 8px;
+                border-style: solid;
+                border-color: #666666;
+            }
+            tr:hover {background-color: #D8DA5C}
+h2 {text-align: center;}
 </style>
 </head>
 <body>
@@ -56,39 +88,67 @@ if(session.getAttribute("userName") == null) {
   <a href="Logout">Logout</a>
   <a href="#about">About</a>
 </div>
+<h3>
+Welcome ${userName}
+</h3>
 <h1>
 Comunication LTD
 </h1>
-<table width="59%" border="1" align="center">
+<form action="AddPurchase" method="POST">
+<div class="container" id="container">
+<table class="gridtable" id="tableMain" width="59%" border="1" align="center" >
 	 <thead>
-    <tr>
+    <tr class="tableheader">
         <td>Limit</td>
         <td>Supplier</td>
         <td>Infrastructure</td>
         <td>Price</td>
     </tr>
     </thead>
+    <tbody>
     <%
       DbHandle dbHandle = DbHandleImpl.getInstance();
       ResultSet rs = dbHandle.getSurfingPackages();
       ResultSetMetaData metaData = rs.getMetaData();
-        while(rs.next())
-        {
-            %>
-                <tr>
-                 <%
-                 for(int i = 1; i<=metaData.getColumnCount();i++)
-                    { %>
-                     <td>
-                     <%= rs.getString(i)%>
-                     </td>
-                <% 
-                    }
-                %>                   
-                </tr>
-            <% 
-        }
-    %>
+      while(rs.next())
+      {
+          %>
+              <tr>
+               <%
+               for(int i = 1; i<=metaData.getColumnCount();i++)
+                  { %>
+                   <td>
+                   <%= rs.getString(i)%>
+                   </td>
+              <% 
+                  }
+              %>                   
+              </tr>
+          <% 
+          }
+      %>
+</tbody>
 </table>
+</div>
+<h2>
+<button id="Add to purchases" type="button">Add to purchases</button>		
+</h2>	
+</form>	
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+		<script>		
+            $(document).ready(function () {	
+          
+				$('#tableMain tbody').on('click', 'tr', function() {
+                    var tableData = $(this).children("td").map(function() {
+                        return $(this).text();
+                    }).get();
+                    var td=tableData[0];
+                    alert(td);
+				});
+	
+			});	
+		</script>
+		
 </body>
 </html>

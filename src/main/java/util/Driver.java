@@ -24,7 +24,7 @@ public class Driver {
 //			dbHandle.addPurchase("or", "up to 100gb");
 //			dbHandle.addPurchase("roi", "up to 40gb");
 //			Statement stat = c.createStatement();
-//			dbHandle.updatePassword("adi", "Aaaaa-1234");
+//			dbHandle.updatePassword("admin", "Aaaaa-1234");
 //			rs = dbHandle.getUsers();
 //			while (rs.next()) {
 //				System.out.println(rs.getString("userName") + "," + rs.getString("password") +
@@ -60,9 +60,14 @@ public class Driver {
 //			}else {
 //				System.out.println("invalid");
 //			}
-			System.out.println("test="+Thread.currentThread().getContextClassLoader().getResource("configuration.json"));
-			Configuration conf = passUtil.getConfigurations();
-			System.out.println(conf);
+//			System.out.println("test="+Thread.currentThread().getContextClassLoader().getResource("configuration.json"));
+//			Configuration conf = passUtil.getConfigurations();
+//			System.out.println(conf);
+			if(dbHandle.isEmailExist("admin@gmail.com")) {
+				System.out.println("exist");
+			}else {
+				System.out.println("not exist");
+			}
 			//rs.close();
 			c.close();
 		}catch(Exception e) {

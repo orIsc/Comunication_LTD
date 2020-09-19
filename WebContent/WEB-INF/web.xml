@@ -2,6 +2,42 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>Comunication_LTD</display-name>
 
+<!--  
+   <security-constraint>
+      <web-resource-collection>
+         <web-resource-name>SessionTest</web-resource-name>
+         <url-pattern>/*</url-pattern>
+      </web-resource-collection>
+      <user-data-constraint>
+         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </user-data-constraint>
+   </security-constraint>
+-->
+   
+    <!-- SMTP settings -->
+    <!--  
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>comltd7@gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>comunication</param-value>
+    </context-param>
+    -->
+    
+    <!-- Servlets -->
 	<servlet>  
     <servlet-name>Login</servlet-name>  
     <servlet-class>Login</servlet-class>  

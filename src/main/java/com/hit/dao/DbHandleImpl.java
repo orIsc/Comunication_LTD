@@ -74,7 +74,7 @@ public class DbHandleImpl implements DbHandle {
 	}
 
 	@Override
-	public void registerUser(String userName, String pass, String salt, String email) { //Registring user to db
+	public void registerUser(String userName, String pass, String salt, String email) { //Registring user to db  ' OR '1'='1
 		String secPass;
 		
 		try {
@@ -108,9 +108,9 @@ public class DbHandleImpl implements DbHandle {
 			rs = getUser(userName);
 			while(rs.next()) {
 				uname = rs.getString("userName");
-			}
-			if (uname.equals(userName)) {
-				return true;
+				if (uname.equals(userName)) {
+					return true;
+				}
 			}
 		} catch (Exception e) {
 			e.toString();
@@ -309,6 +309,25 @@ public class DbHandleImpl implements DbHandle {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());	
 		}
+	}
+
+	@Override
+	public boolean isEmailExist(String email) {
+		String sqlGetUserByName =  "SELECT * FROM users where email=?";
+		String dbEmail = "";
+		try {
+			conn = getConnection();
+			rs = getUsers();
+			while(rs.next()) {
+				dbEmail = rs.getString("email");
+				if (dbEmail.equals(email)) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			e.toString();
+		}
+		return false;
 	}
 	
 }

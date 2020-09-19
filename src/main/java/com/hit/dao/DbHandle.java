@@ -23,4 +23,5 @@ public interface DbHandle {
 	public void addUserVisit(String userName, String timeStamp);
 	public List<UsersHistory> getAllVisits(String userName);
 	public void removeUserVisit(String userName, String timeStamp);
+	public boolean isEmailExist(String email);
 }
