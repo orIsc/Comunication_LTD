@@ -7,13 +7,16 @@ public class User {
 	private String salt;
 	private String email;
 	private String timeStamp;
+	private int faildAttempts;
 	
-	public User(String userName, String password, String salt, String email) {
+	public User(String userName, String password, String salt, String email, String timeStamp, int faildAttempts) {
 		super();
 		this.userName = userName;
 		this.password = password;
 		this.salt = salt;
 		this.email = email;
+		this.timeStamp = timeStamp;
+		this.faildAttempts = faildAttempts;
 	}
 
 	public String getUserName() {
@@ -56,10 +59,20 @@ public class User {
 		this.timeStamp = timeStamp;
 	}
 
+	public int getFaildAttempts() {
+		return faildAttempts;
+	}
+
+	public void setFaildAttempts(int faildAttempts) {
+		this.faildAttempts = faildAttempts;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userName=" + userName + ", password=" + password + ", salt=" + salt + ", email=" + email
-				+ ", timeStamp=" + timeStamp + "]";
+				+ ", timeStamp=" + timeStamp + ", faildAttempts=" + faildAttempts + "]";
 	}
+
+
 	
 }

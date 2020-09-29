@@ -7,7 +7,10 @@ import java.io.Reader;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -74,24 +77,20 @@ public class DbHandleImpl implements DbHandle {
 	}
 
 	@Override
-	public void registerUser(String userName, String pass, String salt, String email) { //Registring user to db  ' OR '1'='1
+	public void registerUser(String userName, String pass, String salt, String email, String timeStamp) { //Registring user to db  ' OR '1'='1
 		String secPass;
 		
 		try {
 			conn = getConnection();
-			if (!isUserExists(userName)) {
-				secPass = passUtil.generateSecurePassword(pass, salt);
-				prepStat = conn.prepareStatement(queries.sqlUsersinsert);
-				prepStat.setString(1, userName);
-				prepStat.setString(2, secPass);
-				prepStat.setString(3, salt);
-				prepStat.setString(4, email);
-				prepStat.executeUpdate();
-				System.out.println("User inserted successfully");			
-			}
-			else {
-				System.out.println("User name is allready in use");
-			}
+			secPass = passUtil.generateSecurePassword(pass, salt);
+			prepStat = conn.prepareStatement(queries.sqlUsersinsert);
+			prepStat.setString(1, userName);
+			prepStat.setString(2, secPass);
+			prepStat.setString(3, salt);
+			prepStat.setString(4, email);
+			prepStat.setString(5, timeStamp);
+			prepStat.setInt(6, 0);
+			prepStat.executeUpdate();	
 			prepStat.close();
 			conn.close();	
 		} catch (Exception e) {
@@ -329,7 +328,38 @@ public class DbHandleImpl implements DbHandle {
 		}
 		return false;
 	}
-	
+
+	@Override
+	public void setUserTimeStamp(String userName, String timeStamp) {
+		try {
+			conn= getConnection();	
+			prepStat = conn.prepareStatement(queries.sqlUpdateUserTimeStamp);
+			prepStat.setString(1, timeStamp);
+			prepStat.setString(2, userName);
+			prepStat.executeUpdate();
+			prepStat.close();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());	
+		}
+	}
+
+	@Override
+	public void setUserFailedAttempts(String userName, int faildAttempts) {
+		try {
+			conn= getConnection();	
+			prepStat = conn.prepareStatement(queries.sqlUpdateUserFailedAttempts);
+			prepStat.setInt(1, faildAttempts);
+			prepStat.setString(2, userName);
+			prepStat.executeUpdate();
+			prepStat.close();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());	
+		}
+		
+	}
+
 }
 
 

@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,9 +40,11 @@ public class Register extends HttpServlet {
 		RequestDispatcher rd = null;
 		Connection c = dbHandle.getConnection(); 
 	    
-		if(!dbHandle.isUserExists(uname) && passUtils.validPassword(pass)) {
-			dbHandle.registerUser(uname, pass, salt, email);
-			response.sendRedirect("Login.jsp");
+		if(!dbHandle.isUserExists(uname) && passUtils.validPassword(pass) && !dbHandle.isEmailExist(email)) {
+			dbHandle.registerUser(uname, pass, salt, email, getTimeStamp());
+			request.setAttribute("passMessage","Registerd successfuly");
+			rd = request.getRequestDispatcher("Login.jsp");            
+			rd.include(request, response);
 		}
 		else {
 			request.setAttribute("regMessage","Invalid Username or Password");
@@ -48,4 +53,10 @@ public class Register extends HttpServlet {
 		}
 	}
 
+	public static String getTimeStamp() {
+		DateFormat df = new SimpleDateFormat("dd.MM.yyyy_HH:mm:ss");
+		Calendar calobj = Calendar.getInstance();
+		String dp = df.format(calobj.getTime());
+		return dp;
+	}
 }

@@ -10,7 +10,7 @@ import com.hit.dm.UsersHistory;
 public interface DbHandle {
 	public Connection getConnection();
 	public void executeQuery(String query);
-	public void registerUser(String userName, String pass, String salt, String email);
+	public void registerUser(String userName, String pass, String salt, String email, String timeStamp);
 	public boolean isUserExists(String userName);
 	public void addSurfingPackage(String spName, String supplier, String infrastructure, int price);
 	public void addPurchase(String userName, String spName);
@@ -24,4 +24,6 @@ public interface DbHandle {
 	public List<UsersHistory> getAllVisits(String userName);
 	public void removeUserVisit(String userName, String timeStamp);
 	public boolean isEmailExist(String email);
+	public void setUserTimeStamp(String userName, String timeStamp);
+	public void setUserFailedAttempts(String userName, int faildAttempts);
 }

@@ -20,11 +20,12 @@ public class DbQueries {
 	public String sqlSurffingPackageGetall = "Select * from surfingPackages;";
 	public String sqlPurchasesGetall = "Select * from purchases;";
 	public String sqlUsersinsert = "INSERT INTO users" +
-			"(userName,password,salt,email) VALUES (?,?,?,?)";	
+			"(userName,password,salt,email,timeStamp,faildAttempts) VALUES (?,?,?,?,?,?)";	
 	public String sqlSurfingPackageinsert = "INSERT INTO surfingPackages" +
 			"(spName,supplier,infrastructure,price) VALUES (?,?,?,?)";	
 	public String sqlPurchasesinsert = "INSERT INTO purchases" +
 			"(userName,spName) VALUES (?,?)";	
 	public String sqlInsertTimeStamp = "INSERT INTO userHistory" + "(userName,timeStamp) VALUES (?,?)";
-	
+	public String sqlUpdateUserTimeStamp = "UPDATE users SET timeStamp=? where userName=?";
+	public String sqlUpdateUserFailedAttempts = "UPDATE users SET faildAttempts=? where userName=?";
 }

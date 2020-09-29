@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 class DbHandleTest {
 

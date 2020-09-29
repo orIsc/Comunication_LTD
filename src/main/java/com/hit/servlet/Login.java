@@ -26,7 +26,7 @@ import com.hit.dm.User;
  * Servlet implementation class Login
  */
 @WebServlet("/Login")
-public class Login extends HttpServlet {
+public class Login extends HttpServlet implements Comparable<String> {
 	private static final long serialVersionUID = 1L;
     private DbHandle dbHandle = DbHandleImpl.getInstance();
     private DbQueries queries = DbQueries.getInstance();
@@ -42,19 +42,36 @@ public class Login extends HttpServlet {
 		Connection c = dbHandle.getConnection();
 		ResultSet rs = dbHandle.getUser(uname);
 		HttpSession session = request.getSession();
-		int loginAttempts = conf.getLoginAttempts();
+		int loginAttempts = 0; //= conf.getLoginAttempts();
+		String lastTry;
 		
+		try {
+			while(rs.next()) {
+				lastTry = rs.getString("timeStamp");
+				faildAttempts = rs.getInt("faildAttempts");
+				loginAttempts = rs.getInt("loginAttempts");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		if(dbHandle.validUser(uname, pass)) {
 			session.setAttribute("userName", uname);
 			response.sendRedirect("System.jsp");
 			dbHandle.addUserVisit(uname, getTimeStamp());
+			dbHandle.setUserFailedAttempts(uname, 0);
 		}
 		else {
-			session.setAttribute("faildAttempts", faildAttempts + 1);
-			request.setAttribute("passMessage","Invalid Username or Password");
-			rd = request.getRequestDispatcher("Login.jsp");            
-			rd.include(request, response);
+			if(loginAttempts < conf.getLoginAttempts()) {
+				request.setAttribute("passMessage","Invalid Username or Password");
+				dbHandle.setUserFailedAttempts(uname, loginAttempts + 1);
+			}
+			else {
+				request.setAttribute("passMessage","User is blocked for 1 minute");
+			}
+			dbHandle.setUserTimeStamp(uname, getTimeStamp());
 		}
+		rd = request.getRequestDispatcher("Login.jsp");            
+		rd.include(request, response);
 	}
 
 	public static String getTimeStamp() {
@@ -62,5 +79,13 @@ public class Login extends HttpServlet {
 		Calendar calobj = Calendar.getInstance();
 		String dp = df.format(calobj.getTime());
 		return dp;
+	}
+
+	@Override
+	public int compareTo(String last) {
+		if(getTimeStamp().compareTo(last) > 60*1000)
+			return 1;
+		else
+			return 0;
 	}
 }
