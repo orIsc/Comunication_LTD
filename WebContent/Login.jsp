@@ -20,7 +20,8 @@ import="com.hit.dao.DbHandleImpl" errorPage="Error.jsp"%>
 }
 
 .box input[type="text"],
-.box input[type="password"] {
+.box input[type="password"],
+.box input[type="text"] {
     border: 0;
     background: none;
     display: block;
@@ -48,7 +49,8 @@ import="com.hit.dao.DbHandleImpl" errorPage="Error.jsp"%>
 	color:#9CB2B7;
 }
 .box input[type="text"]:focus,
-.box input[type="password"]:focus {
+.box input[type="password"]:focus,
+.box input[type="text"]:focus {
     width: 300px;
     border-color: #2ecc71
 }
@@ -265,7 +267,7 @@ header {
     </div>
     <div id="nav-content" tabindex="0">
       <ul>
-        <li><a href="#0">Home</a></li>
+        <li><a href="Login.jsp">Home</a></li>
         <li><a href="#0">About</a></li>
         <li><a href="#0">Contact</a></li>
         <li class="small"><a href="#0">Facebook</a><a href="#0">Instagram</a></li>

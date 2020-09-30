@@ -33,6 +33,7 @@ public class Login extends HttpServlet implements Comparable<String> {
     private Password_utils passUtils = Password_utils.getInstance();
     private int faildAttempts = 0;
     private Configuration conf = passUtils.getConfigurations();
+    private String lastTry;
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -42,14 +43,11 @@ public class Login extends HttpServlet implements Comparable<String> {
 		Connection c = dbHandle.getConnection();
 		ResultSet rs = dbHandle.getUser(uname);
 		HttpSession session = request.getSession();
-		int loginAttempts = 0; //= conf.getLoginAttempts();
-		String lastTry;
 		
 		try {
 			while(rs.next()) {
 				lastTry = rs.getString("timeStamp");
 				faildAttempts = rs.getInt("faildAttempts");
-				loginAttempts = rs.getInt("loginAttempts");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,9 +59,9 @@ public class Login extends HttpServlet implements Comparable<String> {
 			dbHandle.setUserFailedAttempts(uname, 0);
 		}
 		else {
-			if(loginAttempts < conf.getLoginAttempts()) {
+			if(faildAttempts < conf.getLoginAttempts()) {
 				request.setAttribute("passMessage","Invalid Username or Password");
-				dbHandle.setUserFailedAttempts(uname, loginAttempts + 1);
+				dbHandle.setUserFailedAttempts(uname, faildAttempts + 1);
 			}
 			else {
 				request.setAttribute("passMessage","User is blocked for 1 minute");
