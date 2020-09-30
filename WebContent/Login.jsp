@@ -6,10 +6,76 @@ import="com.hit.dao.DbHandleImpl" errorPage="Error.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Login</title>
 <style>
-h2 {text-align: center;}
-h3 {text-align: center;}
-h4 {text-align: center;}
-h5 {text-align: center;}
+.box {
+    width: 500px;
+    padding: 40px;
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    background: #212121;
+    ;
+    text-align: center;
+    transition: 0.25s;
+    margin-top: 100px
+}
+
+.box input[type="text"],
+.box input[type="password"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+    width: 250px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s
+}
+
+.box h1 {
+    color: #3498db;
+    font-weight: 800
+}
+
+.box p {
+	color:#9CB2B7;
+}
+
+.box a {
+	color:#9CB2B7;
+}
+.box input[type="text"]:focus,
+.box input[type="password"]:focus {
+    width: 300px;
+    border-color: #2ecc71
+}
+
+.box input[type="submit"] {
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    padding: 14px 40px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer
+}
+
+.box input[type="submit"]:hover {
+    background: #2ecc71
+}
+
+.forgot {
+    text-decoration: underline
+}
+
 @import url('https://fonts.googleapis.com/css?family=Encode+Sans+Condensed:400,600');
 
 * {
@@ -40,58 +106,6 @@ header {
   justify-content: center;
   align-items: center;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
-main {
-  padding: 70px 20px 0;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-main > div {
-  margin: auto;
-  max-width: 600px;
-}
-
-main h2 span {
-  color: #BF7497;
-}
-
-main p {
-  line-height: 1.5;
-  font-weight: 200;
-  margin: 20px 0;
-}
-
-main small {
-  font-weight: 300;
-  color: #888;
-}
-
-#nav-container {
-  position: fixed;
-  height: 100vh;
-  width: 100%;
-  pointer-events: none;
-}
-#nav-container .bg {
-  position: absolute;
-  top: 70px;
-  left: 0;
-  width: 100%;
-  height: calc(100% - 70px);
-  visibility: hidden;
-  opacity: 0;
-  transition: .3s;
-  background: #000;
-}
-#nav-container:focus-within .bg {
-  visibility: visible;
-  opacity: .6;
-}
-#nav-container * {
-  visibility: visible;
 }
 
 .button {
@@ -193,11 +207,6 @@ main small {
   transform: none;
 }
 
-
-
-
-
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -231,16 +240,22 @@ ul {
   list-style: none;
 }
 
-img {
-  vertical-align: middle;
-  height: auto;
-  width: 100%;
+.img-responsive {
+    height: auto;
+    width: auto;
+    max-height: 70px;
+    max-width: 250px;
+}
+
+header {
+  color:#3498db;
+  font-size:30px;
 }
 </style>
 </head>
 <body>
 <div class="page">
-  <header tabindex="0">Comunication_LTD</header>
+  <header tabindex="0"><img src="resources/comltdlogo-2.png" class="img-responsive" alt=""> Comunication_LTD</header>
   <div id="nav-container">
     <div class="bg"></div>
     <div class="button" tabindex="0">
@@ -259,38 +274,35 @@ img {
   </div>
 
   <main>
-    <div class="content">
-    <h2>Login</h2>
-      <form action = "Login" method="POST">
-		<h3>
-		Enter User Name
-		<input type="text" name="username"> <br>
-		Enter Password
-		<input type="password" name="password"><br>
-		<input type="submit" value="Login"><br>
-		</h3>
-		<div id="passMessage"></div> 
-		<h4>
-		<%
-		String login_msg=(String)request.getAttribute("passMessage");  
-		if(login_msg!=null)
-		out.println("<font color=red size=4px>"+login_msg+"</font>");
-		%>
-		</h4>
-		</form>
-		<form action = "RegisterPage">
-		<h5>
-		Register new user
-		<input type="submit" value="Register"><br>
-		</h5>
-		</form>
-		<form action="ForgotPassword" method="get">
-		<h5>
-		<input type="submit" value="Forgot Password"><br>
-		</h5>
-	</form>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="box">
+                	<form action="Login" method="post">
+                    <h1>Sign in</h1>
+                    <p class="text-muted"> Please enter your username and password!</p> 
+                    <input type="text" name="username"> 
+                    <input type="password" name="password"> 
+                    <a class="forgot text-muted" href="ForgotPassword">Forgot password?</a> 
+                    <div id="passMessage"></div> 
+					<%
+					String login_msg=(String)request.getAttribute("passMessage");  
+					if(login_msg!=null)
+					out.println("<font color=red size=4px>"+login_msg+"</font>");
+					%>
+                    <input type="submit" value="Sign in">
+					</form>    
+					<form action = "RegisterPage">
+					<p class="text-muted">Register new user</p>
+					<input type="submit" value="Register"><br>
+					</form>
+                </div>
+            </div>
+        </div>
     </div>
-  </main>
+</div>
+</main>
 </div>
 
 </body>
